@@ -40,9 +40,11 @@ if fruit_choice != '':
 else:
     streamlit.write('Please, enter a fruit name')
 
+add_fruit = streamlit.text_input('Do you want to add some fruit?')
+
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 my_cur.execute("SELECT * FROM pc_rivery_db.public.fruit_load_list")
 my_data_row = my_cur.fetchall()
 streamlit.header("The fruit list contains: ")
-streamlit.text(pd.DataFrame(my_data_row))
+streamlit.text(pd.DataFrame(my_data_row, add_fruit))
