@@ -28,10 +28,14 @@ import requests
 # streamlit.text(fruityvice_response.json())
 
 fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
-streamlit.write('The user entered ', fruit_choice)
+if fruit_choice != '':
+    streamlit.write('The user entered ', fruit_choice)
 
-fruityvice_response = requests.get(f'https://fruityvice.com/api/fruit/{fruit_choice}')
-# write your own comment -what does the next line do? 
-fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
-# write your own comment - what does this do?
-streamlit.dataframe(fruityvice_normalized)
+    fruityvice_response = requests.get(f'https://fruityvice.com/api/fruit/{fruit_choice}')
+    # write your own comment -what does the next line do? 
+    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+    fruityvice_normalized.set_index('Fruit', inplace = True)
+    # write your own comment - what does this do?
+    streamlit.dataframe(fruityvice_normalized)
+else:
+    streamlit.write('Please, enter a fruit name')
