@@ -1,5 +1,7 @@
 import streamlit
 import pandas as pd
+import requests
+import snowflake.connector
 streamlit.title('Hi, greetings from VSCode')
 streamlit.header('Welcome to Streamlit')
 streamlit.text('Shall we have a drink?')
@@ -23,7 +25,6 @@ streamlit.dataframe(fruit_to_show)
 
 
 streamlit.header("Fruityvice Fruit Advice!")
-import requests
 
 # streamlit.text(fruityvice_response.json())
 
