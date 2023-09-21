@@ -43,6 +43,6 @@ else:
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 my_cur.execute("SELECT * FROM pc_rivery_db.public.fruit_load_list")
-my_data_row = my_cur.fetchall()
+my_data_row = my_cur.fetchone()
 streamlit.header("The fruit list contains: ")
 streamlit.text(my_data_row)
