@@ -4,6 +4,12 @@ import requests
 import snowflake.connector
 from urllib.error import URLError
 
+
+def get_fruityvice_data(fruit):
+    fruityvice_response = requests.get(f'https://fruityvice.com/api/fruit/{fruit_choice}') 
+    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+    return fruityvice_normalized
+
 streamlit.title('Hi, greetings from VSCode')
 streamlit.header('Welcome to Streamlit')
 streamlit.text('Shall we have a drink?')
@@ -33,8 +39,7 @@ try:
     if fruit_choice != '':
         # streamlit.write('The user entered ', fruit_choice)
 
-        fruityvice_response = requests.get(f'https://fruityvice.com/api/fruit/{fruit_choice}') 
-        fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+        fruityvice_normalized = get_fruityvice_data(fruit_choice)
         streamlit.dataframe(fruityvice_normalized)
     else:
         streamlit.error('Please, enter a fruit name')
