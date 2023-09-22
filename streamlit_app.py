@@ -2,6 +2,8 @@ import streamlit
 import pandas as pd
 import requests
 import snowflake.connector
+from urllib.error import URLError
+
 streamlit.title('Hi, greetings from VSCode')
 streamlit.header('Welcome to Streamlit')
 streamlit.text('Shall we have a drink?')
@@ -40,12 +42,13 @@ if fruit_choice != '':
 else:
     streamlit.write('Please, enter a fruit name')
 
+streamlit.stop()
+
 add_fruit = streamlit.text_input('Do you want to add some fruit?')
 
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 my_cur.execute("SELECT * FROM pc_rivery_db.public.fruit_load_list")
-my_data_row = [el for el in my_cur.fetchall()]
-my_data_row.append(add_fruit)
+my_data_row = my_cur.fetchall()
 streamlit.header("The fruit list contains: ")
 streamlit.dataframe(my_data_row)
